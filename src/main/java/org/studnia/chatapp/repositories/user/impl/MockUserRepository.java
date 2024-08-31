@@ -1,9 +1,8 @@
-package org.studnia.chatapp.repositories.impl;
+package org.studnia.chatapp.repositories.user.impl;
 
-import org.apache.catalina.User;
 import org.springframework.stereotype.Repository;
 import org.studnia.chatapp.dtos.UserDTO;
-import org.studnia.chatapp.repositories.UserRepository;
+import org.studnia.chatapp.repositories.user.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,8 +3,7 @@ package org.studnia.chatapp.services.user.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.studnia.chatapp.dtos.UserDTO;
-import org.studnia.chatapp.repositories.UserRepository;
-import org.studnia.chatapp.repositories.impl.MockUserRepository;
+import org.studnia.chatapp.repositories.user.UserRepository;
 import org.studnia.chatapp.services.user.UserService;
 
 import java.util.List;

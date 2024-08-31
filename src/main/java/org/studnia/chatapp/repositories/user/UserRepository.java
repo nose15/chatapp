@@ -1,4 +1,4 @@
-package org.studnia.chatapp.repositories;
+package org.studnia.chatapp.repositories.user;
 
 import org.studnia.chatapp.dtos.UserDTO;
 
