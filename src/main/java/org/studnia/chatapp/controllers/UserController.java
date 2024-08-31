@@ -3,11 +3,12 @@ package org.studnia.chatapp.controllers;
 import org.apache.catalina.User;
 import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.studnia.chatapp.dtos.UserDTO;
 import org.studnia.chatapp.services.user.UserService;
 
-import java.net.http.HttpResponse;
 import java.util.List;
 
 @RestController
@@ -20,14 +21,27 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDTO> getSingleUser(@PathVariable int id) {
+        UserDTO foundUser = userService.getSingleUser(id);
+
+        if (foundUser != null) {
+            return new ResponseEntity<>(foundUser, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("")
-    public List<UserDTO> allUsers() {
-        return userService.getAllUsers();
+    @ResponseBody
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+        return new ResponseEntity<List<UserDTO>>(userService.getAllUsers(), HttpStatus.OK);
     }
 
     @PostMapping("")
-    public void createUser(@RequestBody UserDTO newUser) {
+    public ResponseEntity<Void> createUser(@RequestBody UserDTO newUser) {
         userService.createUser(newUser);
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 }
 
