@@ -1,12 +1,12 @@
 package org.studnia.chatapp.repositories.user;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import org.studnia.chatapp.dtos.UserDTO;
+import org.studnia.chatapp.models.UserData;
 
 import java.util.List;
 
-public interface UserRepository {
-    public List<UserDTO> getAll();
-    public UserDTO getById(int id);
-    public void create(UserDTO newUser);
-    public void delete(int id);
+@Repository
+public interface UserRepository extends JpaRepository<UserData, Long> {
 }
