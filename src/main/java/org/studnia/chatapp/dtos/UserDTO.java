@@ -1,6 +1,6 @@
 package org.studnia.chatapp.dtos;
 
 public class UserDTO {
-    public int id;
+    public long id;
     public String name;
 }

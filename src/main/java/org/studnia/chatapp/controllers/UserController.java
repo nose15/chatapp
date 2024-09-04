@@ -1,7 +1,5 @@
 package org.studnia.chatapp.controllers;
 
-import org.apache.catalina.User;
-import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,9 +37,8 @@ public class UserController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Void> createUser(@RequestBody UserDTO newUser) {
-        userService.createUser(newUser);
+    public ResponseEntity<Void> registerUser(@RequestBody UserDTO newUser) {
+        userService.registerUser(newUser);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 }
-
