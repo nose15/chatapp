@@ -7,14 +7,14 @@ import jakarta.persistence.*;
 public class User {
    @Id
    @GeneratedValue(strategy = GenerationType.UUID)
-   private long id;
+   private String id;
    private String email;
 
    public void setEmail(String email) {
       this.email = email;
    }
 
-   public long getId() {
+   public String  getId() {
       return id;
    }
 

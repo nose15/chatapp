@@ -1,13 +1,15 @@
 package org.studnia.chatapp.services.user;
-import org.studnia.chatapp.dtos.UserDTO;
+import org.studnia.chatapp.dtos.user.UserRequestDTO;
+import org.studnia.chatapp.dtos.user.UserResponseDTO;
+
 import java.util.List;
 
 public interface UserService {
-    List<UserDTO> getAllUsers();
+    List<UserResponseDTO> getAllUsers();
 
-    UserDTO getSingleUser(long id);
+    UserResponseDTO getSingleUser(String id);
 
-    void registerUser(UserDTO newUser);
+    void registerUser(UserRequestDTO newUser);
 
-    void deleteUser(long id);
+    void deleteUser(String id);
 }

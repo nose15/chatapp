@@ -2,7 +2,8 @@ package org.studnia.chatapp.services.user.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.studnia.chatapp.dtos.UserDTO;
+import org.studnia.chatapp.dtos.user.UserRequestDTO;
+import org.studnia.chatapp.dtos.user.UserResponseDTO;
 import org.studnia.chatapp.models.User;
 import org.studnia.chatapp.repositories.user.UserRepository;
 import org.studnia.chatapp.services.user.UserService;
@@ -21,49 +22,41 @@ public class MockUserService implements UserService {
     }
 
     @Override
-    public List<UserDTO> getAllUsers() {
-        List<UserDTO> users = new ArrayList<>();
+    public List<UserResponseDTO> getAllUsers() {
+        List<UserResponseDTO> users = new ArrayList<>();
 
         for (User user : userRepository.findAll()) {
-            users.add(convertToDto(user));
+            users.add(UserResponseDTO.fromEntity(user));
         }
 
         return users;
     }
 
     @Override
-    public UserDTO getSingleUser(long id) {
+    public UserResponseDTO getSingleUser(String id) {
         Optional<User> userData = userRepository.findById(id);
 
         if (userData.isPresent()) {
-            return convertToDto(userData.get());
+            return UserResponseDTO.fromEntity(userData.get());
         }
 
         return null;
     }
 
     @Override
-    public void registerUser(UserDTO newUser) {
-        User userData = new User();
-        userData.setEmail(newUser.name);
+    public void registerUser(UserRequestDTO userData) {
+        User newUser = new User();
+        newUser.setEmail(userData.email);
 
-        userRepository.save(userData);
+        userRepository.save(newUser);
     }
 
     @Override
-    public void deleteUser(long id) {
+    public void deleteUser(String id) {
         Optional<User> userData = userRepository.findById(id);
 
         if (userData.isPresent()) {
             userRepository.delete(userData.get());
         }
-    }
-
-    private UserDTO convertToDto(User userData) {
-        UserDTO userDTO = new UserDTO();
-        userDTO.id = userData.getId();
-        userDTO.name = userData.getEmail();
-
-        return userDTO;
     }
 }

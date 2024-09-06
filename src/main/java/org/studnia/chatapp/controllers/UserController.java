@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.studnia.chatapp.dtos.UserDTO;
+import org.studnia.chatapp.dtos.user.UserRequestDTO;
+import org.studnia.chatapp.dtos.user.UserResponseDTO;
 import org.studnia.chatapp.services.user.UserService;
 
 import java.util.List;
@@ -20,8 +21,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getSingleUser(@PathVariable int id) {
-        UserDTO foundUser = userService.getSingleUser(id);
+    public ResponseEntity<UserResponseDTO> getSingleUser(@PathVariable String id) {
+        UserResponseDTO foundUser = userService.getSingleUser(id);
 
         if (foundUser != null) {
             return new ResponseEntity<>(foundUser, HttpStatus.OK);
@@ -32,12 +33,12 @@ public class UserController {
 
     @GetMapping("")
     @ResponseBody
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
-        return new ResponseEntity<List<UserDTO>>(userService.getAllUsers(), HttpStatus.OK);
+    public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
+        return new ResponseEntity<List<UserResponseDTO>>(userService.getAllUsers(), HttpStatus.OK);
     }
 
-    @PostMapping("")
-    public ResponseEntity<Void> registerUser(@RequestBody UserDTO newUser) {
+    @PostMapping(value = "", consumes = "application/json")
+    public ResponseEntity<Void> registerUser(@RequestBody UserRequestDTO newUser) {
         userService.registerUser(newUser);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
