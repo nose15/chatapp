@@ -1,13 +1,12 @@
 package org.studnia.chatapp.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
-public class UserData {
+@Table(name = "USERS")
+public class User {
    @Id
-   @GeneratedValue
+   @GeneratedValue(strategy = GenerationType.UUID)
    private long id;
    private String email;
 

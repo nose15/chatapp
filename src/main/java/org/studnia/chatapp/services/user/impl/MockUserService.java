@@ -3,7 +3,7 @@ package org.studnia.chatapp.services.user.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.studnia.chatapp.dtos.UserDTO;
-import org.studnia.chatapp.models.UserData;
+import org.studnia.chatapp.models.User;
 import org.studnia.chatapp.repositories.user.UserRepository;
 import org.studnia.chatapp.services.user.UserService;
 
@@ -24,7 +24,7 @@ public class MockUserService implements UserService {
     public List<UserDTO> getAllUsers() {
         List<UserDTO> users = new ArrayList<>();
 
-        for (UserData user : userRepository.findAll()) {
+        for (User user : userRepository.findAll()) {
             users.add(convertToDto(user));
         }
 
@@ -33,7 +33,7 @@ public class MockUserService implements UserService {
 
     @Override
     public UserDTO getSingleUser(long id) {
-        Optional<UserData> userData = userRepository.findById(id);
+        Optional<User> userData = userRepository.findById(id);
 
         if (userData.isPresent()) {
             return convertToDto(userData.get());
@@ -44,7 +44,7 @@ public class MockUserService implements UserService {
 
     @Override
     public void registerUser(UserDTO newUser) {
-        UserData userData = new UserData();
+        User userData = new User();
         userData.setEmail(newUser.name);
 
         userRepository.save(userData);
@@ -52,14 +52,14 @@ public class MockUserService implements UserService {
 
     @Override
     public void deleteUser(long id) {
-        Optional<UserData> userData = userRepository.findById(id);
+        Optional<User> userData = userRepository.findById(id);
 
         if (userData.isPresent()) {
             userRepository.delete(userData.get());
         }
     }
 
-    private UserDTO convertToDto(UserData userData) {
+    private UserDTO convertToDto(User userData) {
         UserDTO userDTO = new UserDTO();
         userDTO.id = userData.getId();
         userDTO.name = userData.getEmail();
