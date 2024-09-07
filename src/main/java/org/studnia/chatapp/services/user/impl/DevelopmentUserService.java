@@ -13,11 +13,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class MockUserService implements UserService {
+public class DevelopmentUserService implements UserService {
+
     UserRepository userRepository;
 
     @Autowired
-    public MockUserService(UserRepository userRepository) {
+    public DevelopmentUserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -47,6 +48,7 @@ public class MockUserService implements UserService {
     public void registerUser(UserRequestDTO userData) {
         User newUser = new User();
         newUser.setEmail(userData.email);
+        newUser.setPasswordHash(userData.password);
 
         userRepository.save(newUser);
     }
