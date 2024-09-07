@@ -48,7 +48,7 @@ public class DevelopmentUserService implements UserService {
     public void registerUser(UserRequestDTO userData) {
         User newUser = new User();
         newUser.setEmail(userData.email);
-        newUser.setPasswordHash(userData.password);
+        newUser.setPassword(userData.password);
 
         userRepository.save(newUser);
     }

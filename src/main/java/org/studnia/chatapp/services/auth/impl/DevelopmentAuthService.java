@@ -3,6 +3,7 @@ package org.studnia.chatapp.services.auth.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.studnia.chatapp.dtos.auth.AuthRequestDTO;
+import org.studnia.chatapp.dtos.auth.AuthResponseDTO;
 import org.studnia.chatapp.models.User;
 import org.studnia.chatapp.repositories.user.UserRepository;
 import org.studnia.chatapp.services.auth.AuthService;
@@ -19,16 +20,20 @@ public class DevelopmentAuthService implements AuthService {
     }
 
     @Override
-    public String login(AuthRequestDTO authDTO) throws IllegalArgumentException {
+    public AuthResponseDTO login(AuthRequestDTO authDTO) {
+        System.out.println(authDTO.email);
+
         Optional<User> userRes = userRepository.findByEmail(authDTO.email);
+
         if (!userRes.isPresent()) {
-            throw new IllegalArgumentException("No user with such email exists");
+            return AuthResponseDTO.failure("No email in db");
         }
         User user = userRes.get();
         if (!user.checkPassword(authDTO.password)) {
-            throw new IllegalArgumentException("Invalid password");
+            return AuthResponseDTO.failure("Invalid password");
         }
-        return "69420";
+
+        return AuthResponseDTO.success("69420");
     }
 
     @Override
