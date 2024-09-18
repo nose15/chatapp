@@ -9,7 +9,7 @@ public interface UserService {
 
     UserResponseDTO getSingleUser(String id);
 
-    void registerUser(UserRequestDTO newUser);
+    UserResponseDTO registerUser(UserRequestDTO newUser);
 
     void deleteUser(String id);
 }

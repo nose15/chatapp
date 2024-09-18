@@ -1,8 +1,10 @@
 package org.studnia.chatapp.controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.studnia.chatapp.dtos.user.UserRequestDTO;
 import org.studnia.chatapp.dtos.user.UserResponseDTO;
@@ -38,8 +40,12 @@ public class UserController {
     }
 
     @PostMapping(value = "", consumes = "application/json")
-    public ResponseEntity<Void> registerUser(@RequestBody UserRequestDTO newUser) {
-        userService.registerUser(newUser);
-        return new ResponseEntity<Void>(HttpStatus.CREATED);
+    public ResponseEntity<?> registerUser(@RequestBody @Valid UserRequestDTO newUser) {
+        try {
+            userService.registerUser(newUser);
+            return new ResponseEntity<Void>(HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 }
