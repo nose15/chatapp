@@ -10,6 +10,15 @@ public class PasswordMatchingValidator implements ConstraintValidator<PasswordMa
     public boolean isValid(Object obj, ConstraintValidatorContext constraintValidatorContext) {
         UserRequestDTO userRequestDTO = (UserRequestDTO) obj;
 
-        return userRequestDTO.password.equals(userRequestDTO.matchingPassword);
+        boolean matches = false;
+
+        if (userRequestDTO.password.equals(userRequestDTO.matchingPassword)) {
+            matches = true;
+        } else {
+            constraintValidatorContext.buildConstraintViolationWithTemplate(
+                    constraintValidatorContext.getDefaultConstraintMessageTemplate()
+            ).addPropertyNode("password").addConstraintViolation();
+        }
+        return matches;
     }
 }
