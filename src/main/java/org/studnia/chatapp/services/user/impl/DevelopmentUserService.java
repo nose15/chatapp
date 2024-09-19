@@ -37,11 +37,7 @@ public class DevelopmentUserService implements UserService {
     public UserResponseDTO getSingleUser(String id) {
         Optional<User> userData = userRepository.findById(id);
 
-        if (userData.isPresent()) {
-            return UserResponseDTO.fromEntity(userData.get());
-        }
-
-        return null;
+        return userData.map(UserResponseDTO::fromEntity).orElse(null);
     }
 
     @Override
@@ -57,8 +53,6 @@ public class DevelopmentUserService implements UserService {
     public void deleteUser(String id) {
         Optional<User> userData = userRepository.findById(id);
 
-        if (userData.isPresent()) {
-            userRepository.delete(userData.get());
-        }
+        userData.ifPresent(user -> userRepository.delete(user));
     }
 }
