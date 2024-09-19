@@ -1,7 +1,8 @@
-package org.studnia.chatapp.sec.validators.password;
+package org.studnia.chatapp.validators.password.annotations;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
+import org.studnia.chatapp.validators.password.PasswordMatchingValidator;
 
 import java.lang.annotation.*;
 

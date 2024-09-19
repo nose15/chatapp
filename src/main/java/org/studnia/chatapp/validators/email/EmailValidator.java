@@ -1,7 +1,8 @@
-package org.studnia.chatapp.sec.validators.email;
+package org.studnia.chatapp.validators.email;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.studnia.chatapp.validators.email.annotations.ValidEmail;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

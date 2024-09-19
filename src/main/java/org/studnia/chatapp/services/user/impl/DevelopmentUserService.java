@@ -47,16 +47,9 @@ public class DevelopmentUserService implements UserService {
     @Override
     public UserResponseDTO registerUser(UserRequestDTO userData) throws IllegalArgumentException {
         User newUser = new User();
-
-        if (userRepository.findByEmail(userData.email).isPresent()) {
-            throw new IllegalArgumentException("User already exists");
-        }
-
         newUser.setEmail(userData.email);
         newUser.setPassword(userData.password);
-
         userRepository.save(newUser);
-
         return UserResponseDTO.fromEntity(newUser);
     }
 

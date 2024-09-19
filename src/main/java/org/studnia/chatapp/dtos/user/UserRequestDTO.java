@@ -4,12 +4,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.lang.NonNull;
-import org.studnia.chatapp.sec.validators.email.ValidEmail;
-import org.studnia.chatapp.sec.validators.password.PasswordMatches;
+import org.studnia.chatapp.validators.email.annotations.UniqueEmail;
+import org.studnia.chatapp.validators.email.annotations.ValidEmail;
+import org.studnia.chatapp.validators.password.annotations.PasswordMatches;
 
 @PasswordMatches
 public class UserRequestDTO {
     @ValidEmail
+    @UniqueEmail
     @NonNull
     @NotNull
     @NotEmpty
